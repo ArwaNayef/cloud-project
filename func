@@ -1,0 +1,25 @@
+import PyPDF2
+import os
+from PyPDF2 import PdfFileReader
+
+def title(path):
+    with open(path, "rb") as file:
+        pdf=PdfFileReader(file)
+        info= pdf.getDocumentInfo()
+        page_numbers=pdf.getNumPages()
+        if info.title==None:
+            return "z"
+        
+        return info.title
+#print(title("C:/Users/HP/Downloads\\1-s2.0-S1877050920308656-main.pdf"))
+
+
+
+dir_name = 'C:/Users/HP/Downloads/pdfs/'
+# List all the files in the current directory
+files = os.listdir(dir_name)
+
+# Sort the files by title (using metadata)
+sorted_files = sorted(files, key=lambda x: title(os.path.join(dir_name,x)))
+# Print the sorted list of files
+print(sorted_files)
